@@ -17,13 +17,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	
 	// the number is coordianted with the numbers on the right side of the Roborio
-	Victor leftFrontMotor = new Victor(1);
-	Victor leftRearMotor = new Victor(0);
-	Victor rightFrontMotor = new Victor(3);
-	Victor rightRearMotor = new Victor(2);
+	public Victor leftFrontMotor = new Victor(1);
+	public Victor leftRearMotor = new Victor(0);
+	public Victor rightFrontMotor = new Victor(3);
+	public Victor rightRearMotor = new Victor(2);
 	
 	// parameter here is the index of joystick on driverstation
-	Joystick driverStick = new Joystick(0);
+	public Joystick driverStick = new Joystick(0);
 	
 	
 	
@@ -78,12 +78,24 @@ public class Robot extends IterativeRobot {
 		double driveSpeed = 0.3;
 		
 		double leftStickVal = driverStick.getRawAxis(1);
-		double rightStickVal = driverStick.getRawAxis(3);
+		double rightStickVal = driverStick.getRawAxis(5);
 		
-		leftFrontMotor.set(leftStickVal);
-		leftRearMotor.set(leftStickVal);
+		
+		leftFrontMotor.set(0-leftStickVal);
+		leftRearMotor.set(0-leftStickVal);
 		rightFrontMotor.set(rightStickVal);
 		rightRearMotor.set(rightStickVal);
+		
+		
+//		if(leftStickVal != 0.0) {
+//			//leftFrontMotor.set(leftStickVal);
+//			leftRearMotor.set(leftStickVal);
+//		}
+//		
+//		if(rightStickVal != 0.0) {
+//			//leftFrontMotor.set(rightStickVal);
+//			leftRearMotor.set(rightStickVal);
+//		}
 		
 		if(driverStick.getRawButton(1)){
 			leftFrontMotor.set(driveSpeed);
@@ -91,12 +103,7 @@ public class Robot extends IterativeRobot {
 			rightFrontMotor.set(driveSpeed);
 			rightRearMotor.set(driveSpeed);
 		}
-		else {
-			leftFrontMotor.set(0);
-			leftRearMotor.set(0);
-			rightFrontMotor.set(0);
-			rightRearMotor.set(0);
-		}
+
 	}
 
 	/**
