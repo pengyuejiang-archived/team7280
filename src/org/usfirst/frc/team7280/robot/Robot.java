@@ -13,20 +13,15 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 public class Robot extends IterativeRobot {
-	
-	// the number is coordianted with the numbers on the right side of the Roborio
+
+	// Declare variables
+	public Joystick driverStick = new Joystick(0);
 	public Victor leftFrontMotor = new Victor(1);
 	public Victor leftRearMotor = new Victor(0);
 	public Victor rightFrontMotor = new Victor(3);
 	public Victor rightRearMotor = new Victor(2);
-	
-	// parameter here is the index of joystick on driverstation
-	public Joystick driverStick = new Joystick(0);
-	
-	
-	
+
 	private static final String kDefaultAuto = "Default";
 	private static final String kCustomAuto = "My Auto";
 	private String m_autoSelected;
@@ -43,7 +38,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto choices", m_chooser);
 	}
 
-	
+
 	@Override
 	public void autonomousInit() {
 		m_autoSelected = m_chooser.getSelected();
@@ -66,43 +61,23 @@ public class Robot extends IterativeRobot {
 		}
 	}
 
-	
-	
+
+
 	/**
 	 * This function is called periodically during operator control.
 	 */
 	@Override
-	public void teleopPeriodic() { 
-		// set the left front motor at a speed
-		// 0-stop, 1.0-full speed forward, 0.5-half speed forward; negative means backward
-		double driveSpeed = 0.3;
-		
+	public void teleopPeriodic() {
+
+		// Read input from joystick.
 		double leftStickVal = driverStick.getRawAxis(1);
 		double rightStickVal = driverStick.getRawAxis(5);
-		
-		
-		leftFrontMotor.set(0-leftStickVal);
-		leftRearMotor.set(0-leftStickVal);
+
+		// Basic behaviour control.
+		leftFrontMotor.set(0 - leftStickVal);
+		leftRearMotor.set(0 - leftStickVal);
 		rightFrontMotor.set(rightStickVal);
 		rightRearMotor.set(rightStickVal);
-		
-		
-//		if(leftStickVal != 0.0) {
-//			//leftFrontMotor.set(leftStickVal);
-//			leftRearMotor.set(leftStickVal);
-//		}
-//		
-//		if(rightStickVal != 0.0) {
-//			//leftFrontMotor.set(rightStickVal);
-//			leftRearMotor.set(rightStickVal);
-//		}
-		
-		if(driverStick.getRawButton(1)){
-			leftFrontMotor.set(driveSpeed);
-			leftRearMotor.set(driveSpeed);
-			rightFrontMotor.set(driveSpeed);
-			rightRearMotor.set(driveSpeed);
-		}
 
 	}
 
@@ -111,5 +86,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+
 	}
+
 }
